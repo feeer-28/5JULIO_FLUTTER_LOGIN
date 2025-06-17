@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_junio5/views/medioPago.dart';
+import 'package:flutter_application_junio5/views/menuDrawrs.dart';
+import 'detalleVehiculo.dart'; 
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({super.key});
@@ -72,9 +75,20 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       ],
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.arrow_forward, color: detalle),
+                      icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
-                        // Acción al presionar el botón
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleVehiculo(
+                              marca: listaAutos[index]["marca"],
+                              modelo: listaAutos[index]["modelo"],
+                              anio: listaAutos[index]["anio"],
+                              disponible: listaAutos[index]["disponibilidad"],
+                              imagenUrl: listaAutos[index]["imageUrl"],
+                            ),
+                          ),
+                        );
                       },
                     ),
                   );
@@ -83,6 +97,53 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, 
+        selectedItemColor: Colors.redAccent,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Usuario',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.payment),
+            label: 'Pago',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.car_rental),
+            label: 'Alquiler',
+          ),
+        ],
+        onTap: (value) => {
+          if (value == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MenuPrincipal()),
+            )
+          } else if (value == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PerfilUsuario()), 
+            )
+          } else if (value == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MedioPago()), 
+            )
+          } else if (value == 3) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Funcionalidad de Alquiler no implementada')),
+            )
+          }
+        },
       ),
     );
   }

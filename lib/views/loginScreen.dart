@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_junio5/views/mainPrincipal.dart';
+import 'registroUsuario.dart'; 
 
 class LoginScreen extends StatefulWidget {
     const LoginScreen({super.key});
@@ -147,6 +148,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextButton(
                                     onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const RegistroScreen(),
+                                        ),
+                                      );
                                     },
                                     child: Text(
                                         " Registrate",
@@ -159,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                             ],
                         ),
-                        // Aquí puedes agregar más widgets dentro del Padding
+                SizedBox(height: 20),
                     ],
                 ),
             ),
